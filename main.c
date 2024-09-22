@@ -37,7 +37,7 @@ void signal_handler(int signum) {
 
 int main() {
 	// get the characted device descriptor from uinput
-	int dev = open("/dev/uinput", O_NONBLOCK | O_WRONLY | O_SYNC);
+	int dev = open("/dev/uinput", O_NONBLOCK | O_WRONLY);
 	if (dev < 0)
 		handle_error("Unable to create device");
 
@@ -66,13 +66,12 @@ int main() {
 		// if event is in the lookup table emit the corrosponding event
 		struct keypress_event* ev = lookup(event);
 		if (ev != NULL) {
+			if (emit(dev, ev->type, ev->code, ev->value) == -1) {
+				handle_error("could not emit event");
+			}
 			// sync
 			if (emit(dev, EV_SYN, SYN_REPORT, 0) == -1) {
 				handle_error("could not send syn report");
-			}
-
-			if (emit(dev, ev->type, ev->code, ev->value) == -1) {
-				handle_error("could not emit event");
 			}
 		}
 	}

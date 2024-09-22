@@ -23,11 +23,26 @@ struct KeyValuePair {
 	.out = { .code = (code_out), .type = EV_KEY, .value = 1}  \
 }
 
+#define ABS_PRESS(code_inp, code_out, on_val, off_val) \
+{\
+	.inp = { .code = (code_inp), .type = EV_KEY, .value = 0}, \
+	.out = { .code = (code_out), .type = EV_ABS, .value = (off_val)}  \
+},\
+{\
+	.inp = { .code = (code_inp), .type = EV_KEY, .value = 1}, \
+	.out = { .code = (code_out), .type = EV_ABS, .value = (on_val)}  \
+}
+
 static struct KeyValuePair key_table[] = {
-	KEY_PRESS(KEY_L, BTN_B),
-	KEY_PRESS(KEY_J, BTN_X),
-	KEY_PRESS(KEY_I, BTN_Y),
-	KEY_PRESS(KEY_K, BTN_A)
+	KEY_PRESS(KEY_KP4, BTN_B),
+	KEY_PRESS(KEY_KP5, BTN_X),
+	KEY_PRESS(KEY_KP6, BTN_Y),
+	KEY_PRESS(KEY_KP3, BTN_A), 
+
+	ABS_PRESS(KEY_UP,         ABS_HAT0Y, -1, 0),
+	ABS_PRESS(KEY_DOWN,       ABS_HAT0Y,  1, 0),
+	ABS_PRESS(KEY_LEFT,       ABS_HAT0X, -1, 0),
+	ABS_PRESS(KEY_RIGHT,      ABS_HAT0X,  1, 0),
 };
 
 #endif
