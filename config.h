@@ -13,6 +13,8 @@ struct KeyValuePair {
 	struct keypress_event out;
 };
 
+#define GRAB_DEVICE 1
+
 #define KEY_PRESS(code_inp, code_out) \
 {\
 	.inp = { .code = (code_inp), .type = EV_KEY, .value = 0}, \

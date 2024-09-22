@@ -1,6 +1,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
@@ -35,18 +36,28 @@ void signal_handler(int signum) {
 	_exit(0); // _exit closes file descriptors
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+	if (argc != 2) {
+		fprintf(stderr, "Usage: %s <device>\n", argv[0]); 
+		return EXIT_FAILURE;
+	}
 	// get the characted device descriptor from uinput
 	int dev = open("/dev/uinput", O_NONBLOCK | O_WRONLY);
 	if (dev < 0)
 		handle_error("Unable to create device");
 
 	// get the file descriptor for the input device
-	int inp = open("/dev/input/event3", O_RDONLY | O_NONBLOCK);
+	int inp = open(argv[1], O_RDONLY | O_NONBLOCK);
 	if (inp < 0)
 		handle_error("Unable to open input device");
 
 	signal(SIGINT, signal_handler);
+
+	if (GRAB_DEVICE) {
+		if (ioctl(inp, EVIOCGRAB, 1) == -1) {
+			handle_error("Unable to grab input device");
+		}
+	}
 
 	// initialize the device with predefined metadata
 	if (init_device(dev) == -1)
