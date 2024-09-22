@@ -124,16 +124,18 @@ int main() {
 
 	const int btns[] = { BTN_A, BTN_B, BTN_X, BTN_Y };
 
-	for (int i = 0; i < 4; i++) {
-		for (int v = 1; v >= 0; v--) {
-			if (emit(dev, EV_KEY, btns[i], v) == -1)
-				handle_error(dev);
+	struct event_t {
+		int type;
+		int code;
+		int value;
+	} event;
 
-			if (emit(dev, EV_SYN, SYN_REPORT, 0) == -1)
-				handle_error(dev);
+	int res;
+	while ((res = read(stdin, &event, sizeof(event))) != 0) {
+		if (res == -1)
+			handle_error(dev);
 
-			sleep(2);
-		}
+		emit(dev, event.type, event.code, event.value);
 	}
 
 	if (destroy_device(dev))
