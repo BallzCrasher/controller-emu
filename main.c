@@ -69,6 +69,7 @@ int main(int argc, char* argv[]) {
 	while ((res = read(inp, &event, sizeof(event))) != 0) {
 		if (res == -1) {
 			if (errno == EAGAIN) {
+				usleep(LATENCY * 1000);
 				continue;
 			}
 			handle_error("input device read fail");

@@ -13,7 +13,11 @@ struct KeyValuePair {
 	struct keypress_event out;
 };
 
-#define GRAB_DEVICE 1
+#define GRAB_DEVICE 0
+// (measured in milliseconds) this will fix the problem
+// of mixed writing events as well as save cpu cycles when
+// the device is busy
+#define LATENCY 50
 
 #define KEY_PRESS(code_inp, code_out) \
 {\
@@ -36,15 +40,18 @@ struct KeyValuePair {
 }
 
 static struct KeyValuePair key_table[] = {
-	KEY_PRESS(KEY_KP4, BTN_B),
-	KEY_PRESS(KEY_KP5, BTN_X),
-	KEY_PRESS(KEY_KP6, BTN_Y),
-	KEY_PRESS(KEY_KP3, BTN_A), 
+	KEY_PRESS(KEY_K, BTN_B),
+	KEY_PRESS(KEY_U, BTN_X),
+	KEY_PRESS(KEY_I, BTN_Y),
+	KEY_PRESS(KEY_J, BTN_A), 
+	KEY_PRESS(KEY_O, BTN_TR), 
+	KEY_PRESS(KEY_ENTER, BTN_START),
+	KEY_PRESS(KEY_BACKSLASH, BTN_SELECT),
 
-	ABS_PRESS(KEY_UP,         ABS_HAT0Y, -1, 0),
-	ABS_PRESS(KEY_DOWN,       ABS_HAT0Y,  1, 0),
-	ABS_PRESS(KEY_LEFT,       ABS_HAT0X, -1, 0),
-	ABS_PRESS(KEY_RIGHT,      ABS_HAT0X,  1, 0),
+	ABS_PRESS(KEY_W, ABS_HAT0Y, -1, 0),
+	ABS_PRESS(KEY_S, ABS_HAT0Y,  1, 0),
+	ABS_PRESS(KEY_A, ABS_HAT0X, -1, 0),
+	ABS_PRESS(KEY_D, ABS_HAT0X,  1, 0),
 };
 
 #endif
