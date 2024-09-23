@@ -8,7 +8,6 @@
 #include <fcntl.h>
 #include <linux/input.h>
 
-#include "config.h"
 #include "device.h"
 #include "translator.h"
 
@@ -22,6 +21,10 @@ int emit(int fd, int type, int code, int val)
    /* timestamp values below are ignored */
    ie.time.tv_sec = 0;
    ie.time.tv_usec = 0;
+
+#ifdef DEBUG
+	fprintf(stderr, "emitting type=%d, code=%d, val=%d\n", type, code, val);
+#endif
 
    return write(fd, &ie, sizeof(ie));
 }

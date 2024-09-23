@@ -4,6 +4,12 @@
 int init_device(int dev);
 int destroy_device(int dev);
 
+struct keypress_event {
+	int code;
+	int type;
+	int value;
+};
+
 #define JOYSTICK_ABS_MIN -32768
 #define JOYSTICK_ABS_MAX  32767
 
