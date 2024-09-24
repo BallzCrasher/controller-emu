@@ -25,9 +25,10 @@ static int keypress_table[255] = {
 /* all of the available absolute event */
 enum {
 	NOEVENT,
-	DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT, DPAD_NEUTRAL,
-	RJOY_UP, RJOY_DOWN, RJOY_LEFT, RJOY_RIGHT, RJOY_NEUTRAL,
-	LJOY_UP, LJOY_DOWN, LJOY_LEFT, LJOY_RIGHT, LJOY_NEUTRAL
+	DPAD_LEFT, DPAD_RIGHT, DPAD_XNEUTRAL,
+	DPAD_UP,   DPAD_DOWN,  DPAD_YNEUTRAL,
+	RJOY_UP,   RJOY_DOWN,  RJOY_LEFT, RJOY_RIGHT, RJOY_NEUTRAL,
+	LJOY_UP,   LJOY_DOWN,  LJOY_LEFT, LJOY_RIGHT, LJOY_NEUTRAL
 };
 
 static int abspress_table[255] = {
@@ -39,12 +40,13 @@ static int abspress_table[255] = {
 };
 
 
-static struct keypress_event abs_events[16] = {
-	[DPAD_UP]      =  {.code = ABS_HAT0Y, .type = EV_ABS, .value = -1 },
-	[DPAD_DOWN]    =  {.code = ABS_HAT0Y, .type = EV_ABS, .value =  1 },
-	[DPAD_LEFT]    =  {.code = ABS_HAT0X, .type = EV_ABS, .value = -1 },
-	[DPAD_RIGHT]   =  {.code = ABS_HAT0X, .type = EV_ABS, .value =  1 },
-	[DPAD_NEUTRAL] =  {.code = ABS_HAT0X, .type = EV_ABS, .value =  0 },
+static struct keypress_event abs_events[17] = {
+	[DPAD_UP]      =   {.code = ABS_HAT0Y, .type = EV_ABS, .value = -1 },
+	[DPAD_DOWN]    =   {.code = ABS_HAT0Y, .type = EV_ABS, .value =  1 },
+	[DPAD_LEFT]    =   {.code = ABS_HAT0X, .type = EV_ABS, .value = -1 },
+	[DPAD_RIGHT]   =   {.code = ABS_HAT0X, .type = EV_ABS, .value =  1 },
+	[DPAD_XNEUTRAL] =  {.code = ABS_HAT0X, .type = EV_ABS, .value =  0 },
+	[DPAD_YNEUTRAL] =  {.code = ABS_HAT0Y, .type = EV_ABS, .value =  0 },
 };
 
 

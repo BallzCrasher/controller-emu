@@ -39,7 +39,7 @@ struct keypress_event* lookup(struct input_event ev) {
 
 			if (ev.value == 0 && dpad_xdir == abs_events[code].value) {
 				dpad_xdir = 0;
-				return &abs_events[DPAD_NEUTRAL];
+				return &abs_events[DPAD_XNEUTRAL];
 			}
 		}
 
@@ -51,7 +51,7 @@ struct keypress_event* lookup(struct input_event ev) {
 
 			if (ev.value == 0 && dpad_ydir == abs_events[code].value) {
 				dpad_ydir = 0;
-				return &abs_events[DPAD_NEUTRAL];
+				return &abs_events[DPAD_YNEUTRAL];
 			}
 		}
 
