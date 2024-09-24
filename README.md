@@ -1,5 +1,5 @@
 # controller-emu
-A lightweight Linux utility that can turn input events into game controllers.
+A lightweight Linux utility that can turn keyboard input events into game controller events.
 
 ## Motivation
 Many games that I play require an extra controller if I want to play with my friends.
