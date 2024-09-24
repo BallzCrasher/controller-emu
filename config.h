@@ -4,20 +4,23 @@
 #include <linux/input-event-codes.h>
 #include "device.h"
 
-#define GRAB_DEVICE 0
+#define GRAB_DEVICE 1
 /* (measured in milliseconds) this will fix the problem
  * of mixed writing events as well as save cpu cycles when
  * the device is busy
  */
 #define LATENCY 50
 
+#define ESCAPE_KEY KEY_ESC
+
 static int keypress_table[255] = {
 /*  input event          output event     */
-	[KEY_K]         =    BTN_B,
-	[KEY_U]         =    BTN_X,
+	[KEY_K]         =    BTN_A,
+	[KEY_L]         =    BTN_B,
+	[KEY_J]         =    BTN_X,
 	[KEY_I]         =    BTN_Y,
-	[KEY_J]         =    BTN_A,
 	[KEY_O]         =    BTN_TR,
+	[KEY_U]         =    BTN_TL,
 	[KEY_ENTER]     =    BTN_START,
 	[KEY_BACKSLASH] =    BTN_SELECT
 };
@@ -41,12 +44,15 @@ static int abspress_table[255] = {
 
 
 static struct keypress_event abs_events[17] = {
+/*	DPAD events */
 	[DPAD_UP]      =   {.code = ABS_HAT0Y, .type = EV_ABS, .value = -1 },
 	[DPAD_DOWN]    =   {.code = ABS_HAT0Y, .type = EV_ABS, .value =  1 },
 	[DPAD_LEFT]    =   {.code = ABS_HAT0X, .type = EV_ABS, .value = -1 },
 	[DPAD_RIGHT]   =   {.code = ABS_HAT0X, .type = EV_ABS, .value =  1 },
 	[DPAD_XNEUTRAL] =  {.code = ABS_HAT0X, .type = EV_ABS, .value =  0 },
 	[DPAD_YNEUTRAL] =  {.code = ABS_HAT0Y, .type = EV_ABS, .value =  0 },
+	
+/*	RT events */
 };
 
 

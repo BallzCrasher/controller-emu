@@ -80,10 +80,17 @@ int main(int argc, char* argv[]) {
 
 		// if event is in the lookup table emit the corrosponding event
 		struct keypress_event* ev = lookup(event);
+
 		if (ev != NULL) {
+			// escape
+			if (ev->type == -1) {
+				break; 
+			}
+
 			if (emit(dev, ev->type, ev->code, ev->value) == -1) {
 				handle_error("could not emit event");
 			}
+
 			// sync
 			if (emit(dev, EV_SYN, SYN_REPORT, 0) == -1) {
 				handle_error("could not send syn report");

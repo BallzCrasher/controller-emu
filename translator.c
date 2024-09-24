@@ -15,6 +15,11 @@ struct keypress_event* lookup(struct input_event ev) {
 	if (ev.value == 2) 
 		return NULL;
 
+	if (ev.code == ESCAPE_KEY) {
+		res.type = -1;
+		return &res;
+	}
+
 	/* keypress are return after mapping to correct button */
 	if (keypress_table[ev.code] != 0) {
 		res.type  = ev.type;
